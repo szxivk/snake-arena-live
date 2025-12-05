@@ -15,13 +15,15 @@ export function GameBoard({ snake, food, isGameOver, className }: GameBoardProps
   return (
     <div 
       className={cn(
-        "relative border-4 border-game-border bg-game-screen",
+        "relative bg-game-screen",
         isGameOver && "opacity-70",
         className
       )}
       style={{ 
         width: boardSize, 
         height: boardSize,
+        border: '4px solid hsl(var(--game-border))',
+        boxSizing: 'content-box',
       }}
     >
       {/* Grid pattern */}

@@ -47,21 +47,11 @@ const Index = () => {
         <meta name="description" content="Play the classic Snake game with walls or pass-through mode. Compete on the leaderboard and watch live games." />
       </Helmet>
 
-      <div className="flex flex-col items-center gap-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-mono font-bold mb-2">PLAY SNAKE</h1>
-          <p className="font-mono text-sm text-muted-foreground">
-            Arrow keys or WASD to move • Space to pause
-          </p>
-        </div>
-
-        <ModeSelector
-          currentMode={gameState.mode}
-          onModeChange={setMode}
-          disabled={gameState.isPlaying}
-        />
-
-        <div className="flex flex-col lg:flex-row items-center gap-8">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center">
+        {/* Left side - Game Area */}
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="text-2xl font-mono font-bold">PLAY SNAKE</h1>
+          
           <div className="relative">
             <GameBoard
               snake={gameState.snake}
@@ -85,35 +75,53 @@ const Index = () => {
               />
             )}
           </div>
-
-          <div className="flex flex-col items-center gap-6">
-            <ScoreDisplay score={gameState.score} />
-            
-            <div className="border-2 border-border p-3 bg-secondary">
-              <div className="font-mono text-xs text-center text-muted-foreground mb-2">
-                MODE
-              </div>
-              <div className="font-mono text-sm font-bold text-center">
-                {gameState.mode.toUpperCase()}
-              </div>
-            </div>
-
-            <div className="lg:hidden">
-              <GameControls
-                onDirectionChange={changeDirection}
-                disabled={!gameState.isPlaying}
-              />
-            </div>
-          </div>
         </div>
 
-        {!isAuthenticated && (
-          <div className="border-2 border-border p-4 bg-secondary text-center">
-            <p className="font-mono text-sm text-muted-foreground">
-              LOGIN to save your scores to the leaderboard!
-            </p>
+        {/* Right side - Controls & Info */}
+        <div className="flex flex-col gap-6 min-w-[200px]">
+          <ScoreDisplay score={gameState.score} />
+          
+          <div className="border-2 border-border p-4 bg-secondary">
+            <div className="font-mono text-xs text-muted-foreground mb-2">
+              CURRENT MODE
+            </div>
+            <div className="font-mono text-lg font-bold">
+              {gameState.mode.toUpperCase()}
+            </div>
           </div>
-        )}
+
+          <ModeSelector
+            currentMode={gameState.mode}
+            onModeChange={setMode}
+            disabled={gameState.isPlaying}
+          />
+
+          <div className="border-2 border-border p-4 bg-secondary">
+            <div className="font-mono text-xs text-muted-foreground mb-3">
+              CONTROLS
+            </div>
+            <div className="font-mono text-xs space-y-1">
+              <p>↑ ↓ ← → or WASD</p>
+              <p>SPACE to pause</p>
+            </div>
+          </div>
+
+          {/* Mobile controls */}
+          <div className="lg:hidden">
+            <GameControls
+              onDirectionChange={changeDirection}
+              disabled={!gameState.isPlaying}
+            />
+          </div>
+
+          {!isAuthenticated && (
+            <div className="border-2 border-border p-4 bg-secondary">
+              <p className="font-mono text-xs text-muted-foreground">
+                LOGIN to save scores!
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </Layout>
   );
