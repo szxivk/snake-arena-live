@@ -1,5 +1,9 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Layout } from "@/components/layout/Layout";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,15 +13,24 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <Layout>
+      <Helmet>
+        <title>404 - Page Not Found | Snake Arena</title>
+        <meta name="description" content="The page you're looking for doesn't exist." />
+      </Helmet>
+
+      <div className="flex flex-col items-center justify-center min-h-[400px]">
+        <h1 className="text-6xl font-mono font-bold mb-4">404</h1>
+        <p className="text-xl font-mono text-muted-foreground mb-8">
+          PAGE NOT FOUND
+        </p>
+        <Link to="/">
+          <Button className="font-mono">
+            RETURN HOME
+          </Button>
+        </Link>
       </div>
-    </div>
+    </Layout>
   );
 };
 
